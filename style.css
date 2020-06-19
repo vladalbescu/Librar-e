@@ -1,0 +1,311 @@
+:root {
+  --color-1: #25274d;
+  --color-2: #2e9cca;
+  --color-3: #464886;
+  --color-4: #aaabb8;
+  --color-5: #29648a;
+  --color-6: #37ecba;
+  --color-7: #72afd3;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  text-decoration: none;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  background-image: linear-gradient(
+    to bottom right,
+    var(--color-1),
+    var(--color-5)
+  );
+
+  background-repeat: no-repeat;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+}
+
+.container {
+  margin: 15rem 10vw 10vw;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 30px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+  padding: 3rem;
+}
+
+.logo a {
+  position: absolute;
+  top: 8rem;
+  left: 10vw;
+  font-size: 3.5rem;
+  font-family: "MuseoModerno", cursive;
+  background: linear-gradient(to top, var(--color-7), var(--color-6));
+  background-size: cover;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-left: 30px;
+}
+
+.add-book {
+  display: none;
+  max-width: 50rem;
+  margin: auto;
+  margin-bottom: 5rem;
+}
+
+.add-book.visible {
+  display: block;
+}
+
+.add-book__form {
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 6px;
+  flex-direction: column;
+  padding: 3rem 3rem 2rem 3rem;
+  color: var(--color-3);
+  box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.4);
+}
+
+.add-book__form__input {
+  margin-bottom: 1rem;
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+}
+
+.add-book__form__input label {
+  flex-basis: 5rem;
+  display: inline-block;
+  margin-right: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.add-book__form__input input {
+  flex: 1;
+  height: 3rem;
+  padding-left: 1rem;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-size: 1.2rem;
+  color: inherit;
+}
+
+.add-book__form__input input:focus {
+  outline: none;
+  border-bottom: 2px solid var(--color-2);
+}
+
+.add-book__form__submit {
+  display: block;
+  margin: 1rem auto 0 auto;
+  width: 9rem;
+  height: 3rem;
+  text-transform: uppercase;
+  border: none;
+  transition: all 0.2s;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 1rem;
+  background: linear-gradient(to top, var(--color-2), var(--color-7));
+  color: white;
+  transition: all 0.2s;
+}
+
+.add-book__form__submit:hover {
+  color: white;
+  background: linear-gradient(to top, var(--color-3), var(--color-7));
+  transform: scale(1.05);
+}
+
+.add-book__form__submit:hover {
+  outline: none;
+}
+
+.add-book__btn {
+  display: block;
+  margin: auto;
+  border: none;
+  border-radius: 50%;
+  height: 3rem;
+  width: 3rem;
+  font-size: 2rem;
+  color: white;
+  background: linear-gradient(to top, var(--color-7), var(--color-2));
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+
+  text-transform: uppercase;
+  margin-bottom: 3rem;
+  transition: transform 0.2s;
+}
+
+.add-book__btn:focus {
+  outline: none;
+}
+
+.add-book__btn:hover {
+  transform: scale(1.1);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 11rem);
+  grid-auto-rows: 17rem;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.book {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid var(--color-2);
+  border-radius: 6px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+.book--read {
+  border: 2px solid rgb(0, 150, 0);
+}
+
+.book--liked {
+  border: 2px solid rgb(230, 130, 130);
+}
+
+.book--read .book__image {
+  filter: brightness(35%);
+}
+
+.book:hover .book__image {
+  filter: brightness(35%) blur(1px) grayscale(0.3);
+}
+
+.book:hover .book__info,
+.book:hover .book__status {
+  opacity: 1;
+}
+
+.book__info {
+  padding: 1rem;
+}
+
+.book__info,
+.book__status {
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 1;
+}
+
+.book__image {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  object-position: top;
+  transition: all 0.2s;
+}
+
+.book__title {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  padding-bottom: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.3em;
+}
+
+.book__author {
+  font-weight: 600;
+}
+
+.book__author,
+.book__pages {
+  margin-bottom: 0.3rem;
+  font-size: 0.8rem;
+}
+
+.book__status {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 1rem;
+}
+
+.book__status svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0.8rem;
+  filter: brightness(85%);
+  transition: all 0.2s;
+}
+
+.book__status__like {
+  fill: palevioletred;
+}
+
+.book__status__remove {
+  fill: crimson;
+}
+
+.book__status__read {
+  fill: green;
+}
+
+.book__status > button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.book__status > button:focus {
+  outline: none;
+}
+
+.book__status > button:hover svg {
+  filter: brightness(125%);
+  transform: scale(1.1);
+}
+
+.hidden {
+  display: none;
+}
+
+@media screen and (max-width: 800px) {
+  html {
+    font-size: 75%;
+  }
+
+  .container {
+    margin-top: 10rem;
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+
+  .logo a {
+    top: 2rem;
+    left: 50%;
+    margin-left: 0;
+    transform: translateX(-50%);
+  }
+}
+
+@media screen and (max-width: 400px) {
+  html {
+    font-size: 55%;
+  }
+}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Librar-e</title>
+  </head>
+  <body>
+    <div class="logo"><a href="./index.html">librar-e</a></div>
+    <main>
+      <div class="container">
+        <button class="add-book__btn">+</button>
+        <div class="add-book">
+          <form
+            action="index.html"
+            method="POST"
+            class="add-book__form"
+            id="book-form"
+          >
+            <div class="add-book__form__input">
+              <label for="title">Title</label>
+              <input
+                type="text"
+                name="title"
+                id="book-title"
+                placeholder="Harry Potter and The Chamber Of Secrets"
+                required
+              />
+            </div>
+            <div class="add-book__form__input">
+              <label for="author">Author</label>
+              <input
+                type="text"
+                id="book-author"
+                name="author"
+                placeholder="J.K. Rowling"
+                required
+              />
+            </div>
+            <div class="add-book__form__input">
+              <label for="pages">Pages</label>
+              <input
+                type="number"
+                id="book-pages"
+                name="pages"
+                min="0"
+                required
+              />
+            </div>
+            <input
+              id="book-submit"
+              class="add-book__form__submit"
+              type="submit"
+              value="Add book"
+            />
+          </form>
+        </div>
+
+        <div class="grid">
+          <!-- <div class="book" data-id="1">
+            <img src="./img/book.jpeg" class="book__image"></img>
+            <div class="book__info">
+              <h2 class="book__title">
+                The Lord Of The Rings - The Fellowship Of The Ring
+              </h2>
+              <div class="book__author">by J.R.R. Tolkien</div>
+              <div class="book__pages">528 pages</div>
+            </div>
+            <div class="book__status">
+              <button class="book__status__read"> 
+                <svg>
+                  <use href="./img/icons.svg#icon-checkmark"></use>
+                </svg>
+              </button>
+              <button class="book__status__like">
+                <svg>
+                  <use href="./img/icons.svg#icon-heart"></use>
+                </svg>
+              </button>
+              <button class="book__status__remove">
+                <svg>
+                  <use href="./img/icons.svg#icon-cross"></use>
+                </svg>
+              </button>
+            </div>
+          </div>  -->
+        </div>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
