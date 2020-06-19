@@ -11,18 +11,49 @@ function Book(title, author, pages) {
   this.read = false;
   this.liked = false;
 }
+/////////// Initial ////////////
+retrieveStoredLibraryData();
+
+/////////// Add book through form ////////////
 
 let addButton = document.querySelector(".add-book__btn");
 addButton.addEventListener("click", () => {
   document.querySelector(".add-book").classList.toggle("visible");
 });
 
+let form = document.querySelector("#book-form");
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  submitBook(e);
+});
+
+function submitBook(e) {
+  let title = document.querySelector("#book-title");
+  let titleValue = title.value.trim();
+  let author = document.querySelector("#book-author");
+  let authorValue = author.value.trim();
+  let pages = document.querySelector("#book-pages");
+  let pagesValue = pages.value.trim();
+
+  if (titleValue === "" || titleValue === null) titleValue = "Untitled";
+  if (authorValue === "" || authorValue === null)
+    authorValue = "Unknown author";
+  if (pagesValue === "" || pagesValue === null) pagesValue = "Unknown";
+
+  let newBook = new Book(titleValue, authorValue, pagesValue);
+  addBookToLibrary(newBook);
+
+  title.value = "";
+  author.value = "";
+  pages.value = "";
+}
+
 function addBookToLibrary(newBook) {
   newBook.id = idCounter++;
 
   myLibrary.push(newBook);
+  localStorage.setItem("library", JSON.stringify(myLibrary));
 
-  //To remove from here
   render(myLibrary);
 }
 
@@ -142,23 +173,11 @@ function likeBook(book) {
   }
 }
 
-// Add book through form
-let form = document.querySelector("#book-form");
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  submitBook(e);
-});
-
-function submitBook(e) {
-  let title = document.querySelector("#book-title").value.trim();
-  let author = document.querySelector("#book-author").value.trim();
-  let pages = document.querySelector("#book-pages").value;
-  console.log(title + " " + author + " " + typeof pages);
-
-  if (title === "" || title === null) title = "Untitled";
-  if (author === "" || author === null) author = "Unknown author";
-  if (pages === "" || pages === null) pages = "Unknown";
-
-  let newBook = new Book(title, author, pages);
-  addBookToLibrary(newBook);
+/////////// Stored library data ////////////
+function retrieveStoredLibraryData() {
+  let storedLibraryData = localStorage.getItem("library");
+  if (storedLibraryData) {
+    myLibrary = JSON.parse(storedLibraryData);
+    render(myLibrary);
+  }
 }
