@@ -33,6 +33,8 @@ body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: white;
   min-height: 100vh;
+
+  padding-bottom: 5rem;
 }
 
 .container {
@@ -43,7 +45,8 @@ body {
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 3px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
-  padding: 3rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 .logo {
@@ -79,7 +82,7 @@ body {
 .add-book {
   display: none;
   margin: 2rem auto;
-  max-width: 50rem;
+  max-width: 40rem;
 }
 
 .add-book.visible {
@@ -199,35 +202,25 @@ body {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   cursor: pointer;
 }
+
 .book--read {
   border: 2px solid rgb(0, 150, 0);
 }
 
+.book--read .book__status__read svg {
+  fill: rgb(0, 150, 0);
+}
+
 .book--liked {
-  border: 2px solid rgb(230, 130, 130);
+  border: 2px solid rgb(250, 90, 90);
 }
 
-.book--read .book__image {
-  filter: brightness(35%);
-}
-
-.book:hover .book__image {
-  filter: brightness(35%) blur(1px) grayscale(0.3);
-}
-
-.book:hover .book__info,
-.book:hover .book__status {
-  opacity: 1;
+.book--liked .book__status__like svg {
+  fill: rgb(250, 90, 90);
 }
 
 .book__info {
   padding: 1rem;
-}
-
-.book__info,
-.book__status {
-  opacity: 0;
-  transition: opacity 0.2s;
   z-index: 1;
 }
 
@@ -241,6 +234,7 @@ body {
   object-fit: cover;
   object-position: top;
   transition: all 0.2s;
+  filter: brightness(35%);
 }
 
 .book__title {
@@ -273,20 +267,31 @@ body {
   width: 1.5rem;
   height: 1.5rem;
   margin: 0.8rem;
-  filter: brightness(85%);
   transition: all 0.2s;
 }
 
 .book__status__like {
-  fill: palevioletred;
+  fill: var(--color-4);
+}
+
+.book__status__like:hover {
+  fill: rgb(250, 90, 90);
 }
 
 .book__status__remove {
-  fill: crimson;
+  fill: var(--color-4);
 }
 
-.book__status__read {
-  fill: green;
+.book__status__remove:hover svg {
+  fill: rgb(200, 30, 30);
+}
+
+.book__status__read svg {
+  fill: var(--color-4);
+}
+
+.book__status__read:hover svg {
+  fill: rgb(0, 150, 0);
 }
 
 .book__status > button {
@@ -321,6 +326,15 @@ body {
     margin-right: auto;
   }
 
+  .grid {
+    display: grid;
+    margin-top: 3rem;
+    grid-template-columns: repeat(auto-fit, 13rem);
+    grid-auto-rows: 18rem;
+    justify-content: center;
+    gap: 1rem;
+  }
+
   .logo {
     text-align: center;
     margin-top: 3rem;
@@ -347,5 +361,27 @@ body {
   .add-book__form__submit {
     display: block;
     margin: 0.5rem auto 0 auto;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  html {
+    font-size: 65%;
+  }
+
+  .container {
+    width: 96%;
+  }
+  .grid {
+    display: grid;
+    margin-top: 0.5rem;
+    grid-template-columns: repeat(auto-fit, 13rem);
+    grid-auto-rows: 19rem;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .add-book {
+    max-width: 90%;
   }
 }

@@ -1,3 +1,6 @@
+//BUGS:
+// When refreshing, First book appears as READ even though haven't set it read
+// Has to do with set read and localStorage
 let myLibrary = [];
 let booksGrid = document.querySelector(".grid");
 let idCounter = 0;
@@ -15,7 +18,6 @@ function Book(title, author, pages) {
 retrieveStoredLibraryData();
 
 /////////// Add book through form ////////////
-
 let addButton = document.querySelector(".add-book__btn");
 addButton.addEventListener("click", () => {
   document.querySelector(".add-book").classList.toggle("visible");
@@ -28,6 +30,7 @@ form.addEventListener("submit", (e) => {
 });
 
 function submitBook(e) {
+  //Selecting form inputs values
   let title = document.querySelector("#book-title");
   let titleValue = title.value.trim();
   let author = document.querySelector("#book-author");
@@ -50,6 +53,7 @@ function submitBook(e) {
 
 function addBookToLibrary(newBook) {
   newBook.id = idCounter++;
+  localStorage.setItem("id", JSON.stringify(idCounter));
 
   myLibrary.push(newBook);
   localStorage.setItem("library", JSON.stringify(myLibrary));
@@ -66,11 +70,31 @@ function render(library) {
   library.forEach((book) => {
     let bookContainer = document.createElement("div");
     bookContainer.classList.add("book");
+
+    if (book.read) {
+      bookContainer.classList.add("book--read");
+    }
+
+    if (book.liked) {
+      bookContainer.classList.add("book--liked");
+    }
+
+    let renderedTitle = book.title;
+    let renderedAuthor = book.author;
+
+    if (renderedTitle.length > 60) {
+      renderedTitle = renderedTitle.substring(0, 60) + "...";
+    }
+
+    if (renderedAuthor.length > 35) {
+      renderedAuthor = renderedAuthor.substring(0, 35) + "...";
+    }
+
     bookContainer.setAttribute("data-id", book.id);
     bookContainer.innerHTML = `<img src="img/book.jpeg" class="book__image"></img>
     <div class="book__info">
-      <h2 class="book__title">${book.title}</h2>
-      <div class="book__author">by ${book.author}</div>
+      <h2 class="book__title">${renderedTitle}</h2>
+      <div class="book__author">by ${renderedAuthor}</div>
       <div class="book__pages">${book.pages} pages</div>
     </div>
     <div class="book__status">
@@ -109,6 +133,7 @@ function addButtonFunctionality(book, button) {
       let removeButton = book.querySelector(".book__status__remove");
       removeButton.addEventListener("click", () => {
         removeBook(book);
+        localStorage.setItem("library", JSON.stringify(myLibrary));
       });
       break;
     }
@@ -117,6 +142,7 @@ function addButtonFunctionality(book, button) {
       let likeButton = book.querySelector(".book__status__like");
       likeButton.addEventListener("click", () => {
         likeBook(book);
+        localStorage.setItem("library", JSON.stringify(myLibrary));
       });
       break;
     }
@@ -125,6 +151,7 @@ function addButtonFunctionality(book, button) {
       let readButton = book.querySelector(".book__status__read");
       readButton.addEventListener("click", () => {
         readBook(book);
+        localStorage.setItem("library", JSON.stringify(myLibrary));
       });
       break;
     }
@@ -132,8 +159,6 @@ function addButtonFunctionality(book, button) {
 }
 
 function removeBook(book) {
-  console.log(book.getAttribute("data-id"));
-
   // Remove book from library array
   for (let i = 0; i < myLibrary.length; i++) {
     if (myLibrary[i].id === parseInt(book.getAttribute("data-id"))) {
@@ -175,6 +200,11 @@ function likeBook(book) {
 
 /////////// Stored library data ////////////
 function retrieveStoredLibraryData() {
+  let storedID = localStorage.getItem("id");
+  if (storedID) {
+    idCounter = JSON.parse(storedID);
+  }
+
   let storedLibraryData = localStorage.getItem("library");
   if (storedLibraryData) {
     myLibrary = JSON.parse(storedLibraryData);
